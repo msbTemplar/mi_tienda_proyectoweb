@@ -1,0 +1,76 @@
+{% extends "ProyectoWebApp/base.html" %}
+   
+{% load static %}
+
+{% block content %}
+   
+
+<!--<div><p style="color: white;">estamos en la app de la tienda</p></div>-->
+
+<div class="container">
+    
+    <div style="float:right;">
+        <!--<p style="color: white;">Total: {{importe_total_carro}}&nbsp;€</p>-->
+        {% if request.user.is_authenticated %}
+
+        {% include "carro/widget.html" %}
+
+        {% else %}
+        
+        <button  type="button" value="" class="btn btn-warning mt-3">Login para ver Carro</button> 
+        
+        {%  endif %}
+    
+    </div>
+    
+    <div class="row">
+
+
+
+{% for producto in productos %}
+   
+<!-- Heading -->
+<!--
+<section class="page-section clearfix">
+<div class="container">
+ <div class="intro">
+   <img class="intro-img img-fluid mb-3 mb-lg-0 rounded" src="{{producto.imagen.url}}" alt="" style="width: 50%;">
+   
+   
+   <div class="intro-text left-0 text-center bg-faded p-5 rounded">
+     <h2 class="section-heading mb-4" >
+       <span class="section-heading-lower" style="color: yellowgreen;">{{producto.nombre}}</span>
+       <span class="section-heading-upper" style="color: red;">{{producto.Precio}}</span>
+              
+     </h2>
+         
+     
+   </div>
+ </div>
+</div>
+</section>
+-->
+
+<div class="col-md-3">
+
+    <div class="card m-3">
+        <img src="{{producto.imagen.url}}" alt="" class="card-img-top">
+        <div class="card-body" style="text-align: center;">
+            <h7 class="card-title">{{producto.nombre}}</h7>
+            <p class="card-text">{{producto.Precio}}&nbsp;€</p>
+            
+        </div>
+        <div class="card-footer">
+            <a href="{% url 'carro:agregar' producto.id %}" class="btn btn-success btn-sm">Agregar al carro</a>
+        </div>
+    </div><!--Card que se cierra-->
+
+</div>
+
+{% endfor %}
+
+    </div>
+</div>
+
+{% endblock %}
+
